@@ -11,15 +11,14 @@ var App = React.createClass({
         var string = [];
 
         for (let i = 0; i < this.props.list.length; i++) {
-
             if (this.props.list[i].priority === 'normal') {
-                string[i] = React.createElement('li', {style: {backgroundColor: 'green'}}, this.props.list[i].title);
+                string[i] = <li style={{backgroundColor: 'green'}}>{this.props.list[i].title}</li>;
             } else {
-                string[i] = React.createElement('li', {style: {backgroundColor: 'red'}}, this.props.list[i].title);
+                string[i] = <li style={{backgroundColor: 'red'}}>{this.props.list[i].title}</li>;
             }
         }
-        var tmp = React.createElement('ol', null, string);
-        // console.log(React.DOM.p(null, tmp));
+
+        var tmp = <ol>{string}</ol>;
         return React.DOM.p(null, tmp);
     }
 });
