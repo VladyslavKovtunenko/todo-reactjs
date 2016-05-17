@@ -1,15 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const tasks = [{title: 'First task', priority: 'normal'}, {title: 'Second task', priority: 'critical'}];
-var App = React.createClass({
-    render: function () {
-        var string = this.props.list.map((task, i) => (
-            <li style={{backgroundColor: task.priority === 'normal' ? 'green' : 'red'}}>{this.props.list[i].title}</li>
-        ));
+let tasks = [{title: 'First task', priority: 'normal'},
+    {title: 'Second task', priority: 'critical'}];
 
-        return <ol>{string}</ol>;
+let addNewTask = document.getElementById('submit');
+
+let Task = React.createClass({
+    render: function () {
+        return <li
+            style={{backgroundColor: this.props.task.priority=== 'normal' ? 'green' : 'red'}}>{this.props.task.title}</li>;
     }
 });
 
-ReactDOM.render(<App list={tasks}/>, document.getElementById('container'));
+let List = React.createClass({
+    render: function () {
+        return <ol>{this.props.list.map((task, index) => (<Task task={task} index={index}/>))}</ol>;
+    }
+
+});
+
+document.body.onload = () => ReactDOM.render(<List list={tasks}/>, document.getElementById('container'));
+addNewTask.onclick = () => {
+    let obj = {};
+    obj.title = document.getElementById('title').value;
+    obj.priority = document.getElementById('priority').value;
+    tasks.push(obj);
+    ReactDOM.render(<List list={tasks}/>, document.getElementById('container'));
+};
