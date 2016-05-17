@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 let tasks = [{title: 'First task', priority: 'normal'},
     {title: 'Second task', priority: 'critical'}];
 
-let addNewTask = document.getElementById('submit');
+const newTask = document.getElementById('submit');
 
 let Task = React.createClass({
     render: function () {
@@ -14,6 +14,17 @@ let Task = React.createClass({
 });
 
 let List = React.createClass({
+    statics: {
+        addNewTask: () => {
+            let obj = {};
+            obj.title = document.getElementById('title').value;
+            obj.priority = document.getElementById('priority').value;
+            tasks.push(obj);
+            ReactDOM.render(<List list={tasks}/>, document.getElementById('container'));
+            document.getElementById('title').value = '';
+        }
+    },
+
     render: function () {
         return <ol>{this.props.list.map((task, index) => (<Task task={task} index={index}/>))}</ol>;
     }
@@ -21,10 +32,4 @@ let List = React.createClass({
 });
 
 document.body.onload = () => ReactDOM.render(<List list={tasks}/>, document.getElementById('container'));
-addNewTask.onclick = () => {
-    let obj = {};
-    obj.title = document.getElementById('title').value;
-    obj.priority = document.getElementById('priority').value;
-    tasks.push(obj);
-    ReactDOM.render(<List list={tasks}/>, document.getElementById('container'));
-};
+newTask.onclick = () => List.addNewTask();
