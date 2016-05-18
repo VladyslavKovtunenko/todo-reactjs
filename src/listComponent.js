@@ -8,14 +8,19 @@ export let List = React.createClass({
         return {};
     },
 
+    componentWillMount: function () {
+        this.state.tasks = this.props.list;
+    },
+
     addNewTask: function (e) {
         e.preventDefault();
 
         if (this.taskTitle.value !== '') {
-            this.setState({
+            this.state.tasks.push({
                 title: this.taskTitle.value,
                 priority: this.taskPriority.value
             });
+            this.setState(this.state.tasks);
             /**
              * TODO delete next line
              */
@@ -25,7 +30,6 @@ export let List = React.createClass({
     },
 
     render: function () {
-        this.state.tasks = this.props.list;
         return (
             <div>
                 <form onSubmit={this.addNewTask.bind(this)}>
