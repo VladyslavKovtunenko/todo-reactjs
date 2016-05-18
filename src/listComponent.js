@@ -1,7 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import {Task} from './taskComponent'
-import {tasks} from './tasksData'
 
 export let List = React.createClass({
     getInitialState: function () {
@@ -10,6 +8,9 @@ export let List = React.createClass({
 
     componentWillMount: function () {
         this.state.tasks = this.props.list;
+        for (let i = 0; i < this.state.tasks.length; i++) {
+            this.state.tasks[i].id = i;
+        }
     },
 
     addNewTask: function (e) {
@@ -17,16 +18,21 @@ export let List = React.createClass({
 
         if (this.taskTitle.value !== '') {
             this.state.tasks.push({
+                id: this.state.tasks.length,
                 title: this.taskTitle.value,
                 priority: this.taskPriority.value
             });
             this.setState(this.state.tasks);
-            /**
-             * TODO delete next line
-             */
-            // ReactDOM.render(<List list={tasks}/>, document.getElementById('container'));
             this.taskTitle.value = '';
         }
+    },
+
+    deleteTask: function (e) {
+        this.state.tasks.splice(e.target.id, 1);
+        for (let i = e.target.id; i < this.state.tasks.length; i++) {
+            this.state.tasks[i].id = this.state.tasks[i].id - 1;
+        }
+        this.setState(this.state.tasks);
     },
 
     render: function () {
@@ -54,7 +60,12 @@ export let List = React.createClass({
                     </dl>
                 </form>
                 <ol>
-                    {this.state.tasks.map((task, index) => (<Task task={task} index={index}/>))}
+                    {this.state.tasks.map((task, index) => (
+                        <li>
+                            <Task task={task}/>
+                            <button type='button' id={index} onClick={this.deleteTask.bind(this)}>Delete</button>
+                        </li>
+                    ))}
                 </ol>
             </div>);
     }
