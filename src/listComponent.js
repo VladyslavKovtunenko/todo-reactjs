@@ -5,60 +5,49 @@ export class List extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            tasks: this.props.list
-        };
-        for (let i = 0; i < this.state.tasks.length; i++) {
-            this.state.tasks[i].id = i;
+        for (let i = 0; i < this.props.list.length; i++) {
+            this.props.list[i].id = i;
         }
-        this.newTask = {
-            title: undefined,
-            priority: undefined
+
+        this.state = {
+            tasks: this.props.list,
+            inputTitle: '',
+            inputPriority: 'normal'
         };
-        this.state.message = 'New task';
+
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handlePriorityChange = this.handlePriorityChange.bind(this);
     }
 
     addNewTask(e) {
-        console.log(this.state.message);
-        console.log(this.state.value);
-        console.log(this.newTask);
         e.preventDefault();
-        if (this.newTask.title !== '' && this.newTask.title !== undefined && this.newTask.priority !== undefined) {
-            this.state.tasks.push({
+        if (this.state.inputTitle !== '') {
+            this.setState(this.state.tasks[this.state.tasks.length] = {
                 id: this.state.tasks.length,
-                title: this.newTask.title,
-                priority: this.newTask.priority
+                title: this.state.inputTitle,
+                priority: this.state.inputPriority
             });
-            this.setState(this.state.tasks);
         }
     }
 
     deleteTask(e) {
-        this.state.tasks.splice(e.target.id, 1);
-        for (let i = e.target.id; i < this.state.tasks.length; i++) {
-            this.state.tasks[i].id = this.state.tasks[i].id - 1;
-        }
-        this.setState(this.state.tasks);
+        this.setState({
+            tasks: () => {
+                this.state.tasks.splice(e.target.id, 1);
+                for (let i = e.target.id; i < this.state.tasks.length; i++) {
+                    this.state.tasks[i].id = this.state.tasks[i].id - 1;
+                }
+                return this.state.tasks;
+            }
+        });
     }
 
     handlePriorityChange(event) {
-        if (event.target.value === 'chose priority') {
-            this.newTask.priority = undefined;
-        } else this.newTask.priority = event.target.value;
+        this.setState({inputPriority: event.target.value});
     }
 
     handleTitleChange(event) {
-        console.log(this.state.message);
-        this.state.message = event.target.value;
-        console.log(this.state.message);
-        console.log(event);
-    }
-
-    componentDidMount() {
-        setTimeout(()=> {
-            this.state.message = 'hi';
-            this.setState(this.state.message);
-        }, 3000);
+        this.setState({inputTitle: event.target.value});
     }
 
     render() {
@@ -71,11 +60,10 @@ export class List extends React.Component {
                         </dd>
                         <dd>
                             <h5>Task title</h5>
-                            <input type='text' value={this.state.message} onChange={this.handleTitleChange}/>
+                            <input type='text' value={this.state.inputTitle} onChange={this.handleTitleChange}/>
                         </dd>
                         <dd>
-                            <select>
-                                <option>chose priority</option>
+                            <select value={this.state.inputPriority} onChange={this.handlePriorityChange}>
                                 <option>normal</option>
                                 <option>critical</option>
                             </select>
