@@ -2,6 +2,7 @@ import React from 'react'
 import {Task} from './taskComponent'
 
 export let List = React.createClass({
+
     getInitialState: function () {
         return {};
     },
@@ -36,16 +37,22 @@ export let List = React.createClass({
     },
 
     render: function () {
+        let newTask = {
+            requestChange: (e) => this.addNewTask(e)
+        };
+        let delTask = {
+            requestChange: (e) => this.deleteTask(e)
+        };
         return (
             <div>
-                <form onSubmit={this.addNewTask.bind(this)}>
+                <form onSubmit={newTask.requestChange}>
                     <dl>
                         <dd>
                             <h4>Add task</h4>
                         </dd>
                         <dd>
                             <h5>Task title</h5>
-                            <input type='text' placeholder='Title' ref={(ref) => this.taskTitle = ref}/>
+                            <input type='text' placeholder="Title" ref={(ref) => this.taskTitle = ref}/>
                         </dd>
                         <dd>
                             <h5>Priority</h5>
@@ -63,7 +70,7 @@ export let List = React.createClass({
                     {this.state.tasks.map((task, index) => (
                         <li>
                             <Task task={task}/>
-                            <button type='button' id={index} onClick={this.deleteTask.bind(this)}>Delete</button>
+                            <button type='button' id={index} onClick={delTask.requestChange}>Delete</button>
                         </li>
                     ))}
                 </ol>
