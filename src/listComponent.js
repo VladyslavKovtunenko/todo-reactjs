@@ -48,9 +48,17 @@ export class List extends React.Component {
     }
 
     handleTitleChange(event) {
-        //this.newTask.title = event.target.value;
+        console.log(this.state.message);
+        this.state.message = event.target.value;
         console.log(this.state.message);
         console.log(event);
+    }
+
+    componentDidMount() {
+        setTimeout(()=> {
+            this.state.message = 'hi';
+            this.setState(this.state.message);
+        }, 3000);
     }
 
     render() {
