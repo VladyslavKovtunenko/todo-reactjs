@@ -1,20 +1,19 @@
 import React from 'react'
 import {Task} from './taskComponent'
 
-export let List = React.createClass({
+export class List extends React.Component {
 
-    getInitialState: function () {
-        return {};
-    },
-
-    componentWillMount: function () {
-        this.state.tasks = this.props.list;
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasks: this.props.list
+        };
         for (let i = 0; i < this.state.tasks.length; i++) {
             this.state.tasks[i].id = i;
         }
-    },
+    }
 
-    addNewTask: function (e) {
+    addNewTask(e) {
         e.preventDefault();
 
         if (this.taskTitle.value !== '') {
@@ -26,17 +25,17 @@ export let List = React.createClass({
             this.setState(this.state.tasks);
             this.taskTitle.value = '';
         }
-    },
+    }
 
-    deleteTask: function (e) {
+    deleteTask(e) {
         this.state.tasks.splice(e.target.id, 1);
         for (let i = e.target.id; i < this.state.tasks.length; i++) {
             this.state.tasks[i].id = this.state.tasks[i].id - 1;
         }
         this.setState(this.state.tasks);
-    },
+    }
 
-    render: function () {
+    render() {
         let newTask = {
             requestChange: (e) => this.addNewTask(e)
         };
@@ -76,4 +75,4 @@ export let List = React.createClass({
                 </ol>
             </div>);
     }
-});
+}
