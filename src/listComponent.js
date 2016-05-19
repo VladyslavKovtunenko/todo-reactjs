@@ -11,19 +11,18 @@ export class List extends React.Component {
         for (let i = 0; i < this.state.tasks.length; i++) {
             this.state.tasks[i].id = i;
         }
+        this.newTask = {};
     }
 
     addNewTask(e) {
         e.preventDefault();
-
-        if (this.taskTitle.value !== '') {
+        if (this.newTask.title !== '' && this.newTask.title !== undefined && this.newTask.priority !== undefined) {
             this.state.tasks.push({
                 id: this.state.tasks.length,
-                title: this.taskTitle.value,
-                priority: this.taskPriority.value
+                title: this.newTask.title,
+                priority: this.newTask.priority
             });
             this.setState(this.state.tasks);
-            this.taskTitle.value = '';
         }
     }
 
@@ -36,26 +35,28 @@ export class List extends React.Component {
     }
 
     render() {
-        let newTask = {
-            requestChange: (e) => this.addNewTask(e)
+        let handleTitleChange = (event) => {
+            this.newTask.title = event.target.value;
         };
-        let delTask = {
-            requestChange: (e) => this.deleteTask(e)
+        let handlePriorityChange = (event) => {
+            if (event.target.value === 'chose priority') {
+                this.newTask.priority = undefined;
+            } else this.newTask.priority = event.target.value;
         };
         return (
             <div>
-                <form onSubmit={newTask.requestChange}>
+                <form onSubmit={(e) => this.addNewTask(e)}>
                     <dl>
                         <dd>
                             <h4>Add task</h4>
                         </dd>
                         <dd>
                             <h5>Task title</h5>
-                            <input type='text' placeholder="Title" ref={(ref) => this.taskTitle = ref}/>
+                            <input type='text' placeholder="Title" onChange={handleTitleChange}/>
                         </dd>
                         <dd>
-                            <h5>Priority</h5>
-                            <select ref={(ref) => this.taskPriority = ref}>
+                            <select onChange={handlePriorityChange}>
+                                <option>chose priority</option>
                                 <option>normal</option>
                                 <option>critical</option>
                             </select>
@@ -69,7 +70,7 @@ export class List extends React.Component {
                     {this.state.tasks.map((task, index) => (
                         <li>
                             <Task task={task}/>
-                            <button type='button' id={index} onClick={delTask.requestChange}>Delete</button>
+                            <button type='button' id={index} onClick={(e) => this.deleteTask(e)}>Delete</button>
                         </li>
                     ))}
                 </ol>
