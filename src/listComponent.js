@@ -11,10 +11,17 @@ export class List extends React.Component {
         for (let i = 0; i < this.state.tasks.length; i++) {
             this.state.tasks[i].id = i;
         }
-        this.newTask = {};
+        this.newTask = {
+            title: undefined,
+            priority: undefined
+        };
+        this.state.message = 'New task';
     }
 
     addNewTask(e) {
+        console.log(this.state.message);
+        console.log(this.state.value);
+        console.log(this.newTask);
         e.preventDefault();
         if (this.newTask.title !== '' && this.newTask.title !== undefined && this.newTask.priority !== undefined) {
             this.state.tasks.push({
@@ -34,15 +41,19 @@ export class List extends React.Component {
         this.setState(this.state.tasks);
     }
 
+    handlePriorityChange(event) {
+        if (event.target.value === 'chose priority') {
+            this.newTask.priority = undefined;
+        } else this.newTask.priority = event.target.value;
+    }
+
+    handleTitleChange(event) {
+        //this.newTask.title = event.target.value;
+        console.log(this.state.message);
+        console.log(event);
+    }
+
     render() {
-        let handleTitleChange = (event) => {
-            this.newTask.title = event.target.value;
-        };
-        let handlePriorityChange = (event) => {
-            if (event.target.value === 'chose priority') {
-                this.newTask.priority = undefined;
-            } else this.newTask.priority = event.target.value;
-        };
         return (
             <div>
                 <form onSubmit={(e) => this.addNewTask(e)}>
@@ -52,10 +63,10 @@ export class List extends React.Component {
                         </dd>
                         <dd>
                             <h5>Task title</h5>
-                            <input type='text' placeholder="Title" onChange={handleTitleChange}/>
+                            <input type='text' value={this.state.message} onChange={this.handleTitleChange}/>
                         </dd>
                         <dd>
-                            <select onChange={handlePriorityChange}>
+                            <select>
                                 <option>chose priority</option>
                                 <option>normal</option>
                                 <option>critical</option>
