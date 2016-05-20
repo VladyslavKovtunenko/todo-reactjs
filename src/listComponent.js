@@ -31,15 +31,13 @@ export class List extends React.Component {
     }
 
     deleteTask(e) {
-        this.setState({
-            tasks: () => {
-                this.state.tasks.splice(e.target.id, 1);
-                for (let i = e.target.id; i < this.state.tasks.length; i++) {
-                    this.state.tasks[i].id = this.state.tasks[i].id - 1;
-                }
-                return this.state.tasks;
-            }
-        });
+        let newTaskArray = this.state.tasks;
+        console.log('lul' + this.state.tasks);
+        newTaskArray.splice(e.target.id, 1);
+        for (let i = e.target.id; i < newTaskArray.length; i++) {
+            newTaskArray[i].id = newTaskArray[i].id - 1;
+        }
+        this.setState({tasks: newTaskArray});
     }
 
     handlePriorityChange(event) {
@@ -51,6 +49,7 @@ export class List extends React.Component {
     }
 
     render() {
+        console.log('lol' + this.state.tasks);
         return (
             <div>
                 <form onSubmit={(e) => this.addNewTask(e)}>
