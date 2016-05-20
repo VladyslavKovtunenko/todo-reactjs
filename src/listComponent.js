@@ -31,12 +31,12 @@ export class List extends React.Component {
     }
 
     deleteTask(e) {
-        let newTaskArray = this.state.tasks;
-        console.log('lul' + this.state.tasks);
+        let newTaskArray = [].concat(this.state.tasks);
         newTaskArray.splice(e.target.id, 1);
         for (let i = e.target.id; i < newTaskArray.length; i++) {
             newTaskArray[i].id = newTaskArray[i].id - 1;
         }
+        console.log(newTaskArray);
         this.setState({tasks: newTaskArray});
     }
 
@@ -49,7 +49,6 @@ export class List extends React.Component {
     }
 
     render() {
-        console.log('lol' + this.state.tasks);
         return (
             <div>
                 <form onSubmit={(e) => this.addNewTask(e)}>
