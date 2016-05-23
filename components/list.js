@@ -1,6 +1,5 @@
 import React from 'react'
-import {Task} from './taskComponent'
-
+import {Task} from './task'
 
 export class List extends React.Component {
 
