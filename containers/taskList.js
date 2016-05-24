@@ -1,16 +1,15 @@
 import React from 'react'
 import {Task} from '../components/task'
 
-export const TaskList = () => {
-    console.log(this);
+export const TaskList = (tasks) => {
+    tasks = tasks.tasks;
     return (
         <ol>
-            {this.props.tasks.map((task) => (
+            {tasks.map((task) => (
                 <li>
                     <Task task={task}/>
                 </li>
             ))}
         </ol>
     )
-
 };

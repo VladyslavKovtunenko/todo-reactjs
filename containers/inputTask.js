@@ -1,9 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {addTask} from '../actions/actions'
 
 
-export let InputTask = ({dispatch}) => {
+export let InputTask = (store) => {
+    store = store.store.store;
+    console.log(store);
     let input;
     return (
         <form onSubmit={
@@ -12,7 +13,7 @@ export let InputTask = ({dispatch}) => {
                 if (!input.value.trim()) {
                     return;
                 }
-                dispatch(addTask(input.value));
+                store.dispatch(addTask(input.value));
                 input.value = '';
             }
         }>
@@ -37,5 +38,3 @@ export let InputTask = ({dispatch}) => {
         </form>
     );
 };
-
-InputTask = connect()(InputTask);
