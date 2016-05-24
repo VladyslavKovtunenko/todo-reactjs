@@ -1,14 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {addTask} from '../actions/actions'
-import {List} from '../components/list'
-import {store} from '../store/store'
+import {App} from '../components/app'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import {todo} from '../redusers/reducer'
+
+
+const store = createStore(todo);
 
 const tasks = [{title: 'First task', priority: 'normal'},
     {title: 'Second task', priority: 'critical'}];
 
+/*store.dispatch(addTask(tasks[0].title));
+ store.dispatch(addTask(tasks[1].title));*/
+
 const render = () => {
-    ReactDOM.render(<List list={store.getState()}/>, document.getElementById('container'))
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('container'));
 };
 
 console.log(store.getState());
@@ -16,11 +28,8 @@ console.log(store.getState());
 store.subscribe(render);
 render();
 
-setTimeout(()=> {
-    store.dispatch(addTask(tasks[0].title));
-    console.log(store.getState());
-}, 2000);
-setTimeout(()=> {
-    store.dispatch(addTask(tasks[1].title));
-    console.log(store.getState());
-}, 6000);
+
+store.dispatch(addTask(tasks[0].title));
+// console.log(store.getState());
+store.dispatch(addTask(tasks[1].title));
+// console.log(store.getState());
