@@ -1,10 +1,16 @@
 import React from 'react'
 
-export const Task = (task) => {
-    task = task.task;
-    return (
-        <div style={{backgroundColor: task.priority === 'normal' ? 'green' : 'red'}}>
-            {task.title}
-        </div>
-    )
-};
+export class Task extends React.Component {
+    constructor(prors) {
+        super(prors);
+        this.task = this.props.task;
+    }
+
+    render() {
+        return (
+            <div style={{backgroundColor: this.task.priority === 'normal' ? 'green' : 'red'}}>
+                {this.task.title}
+            </div>
+        );
+    }
+}
