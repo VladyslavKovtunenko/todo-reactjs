@@ -5,16 +5,17 @@ import {addTask} from '../actions/actions'
 export class InputTask extends React.Component {
     constructor(props) {
         super(props);
-        this.dispatch = this.props.store.store.dispatch;
+        console.log(this.props);
+        this.input = '';
         this.submit = this.submit.bind(this);
     }
 
     submit(e) {
         e.preventDefault();
-        if (!this.input.value.trim()) {
-            return;
+        console.log(this.input.value);
+        if (this.input.value !== '') {
+            this.props.add(addTask(this.input.value));
         }
-        this.dispatch(addTask(this.input.value));
         this.input.value = '';
     };
 

@@ -7,33 +7,35 @@ import {connect} from 'react-redux'
 class App extends React.Component {
     constructor(props) {
         super(props);
-        //this.tasks = store.store.getState();
-        console.log(this.props);
-        //console.log(tasks);
     }
 
-// <InputTask store={store}/>
     render() {
-     return (
-         <div>
-
-             <ol>
-                 {this.tasks.map((task) => (
-                     <li>
-                         <Task task={task}/>
-                     </li>
-                 ))}
-             </ol>
-         </div>
-     )
+        return (
+            <div>
+                <InputTask/>
+                <Task/>
+            </div>
+        )
     }
 
 }
 const mapStateToProps = (store) => {
-    console.log(store);
-    return {tasks: store.getState()}
+    return {
+        tasks: store
+    }
 };
 
-App = connect(mapStateToProps)(Task);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        add: (value) => {
+            dispatch(value)
+        }
+    }
+};
 
-export default App
+
+
+App = connect(mapStateToProps)(Task);
+App = connect(mapStateToProps, mapDispatchToProps)(InputTask);
+
+export default App;

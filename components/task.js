@@ -3,17 +3,17 @@ import React from 'react'
 export class Task extends React.Component {
     constructor(props) {
         super(props);
-        this.task = this.props.task;
-        console.log(this.props);
-        console.log(tasks);
     }
 
     render() {
-        return <div></div>;
-        /*(
-            <div style={{backgroundColor: this.task.priority === 'normal' ? 'green' : 'red'}}>
-                {this.task.title}
-            </div>
-         );*/
+        return (
+            <ol>
+                {this.props.tasks.map((task) => (
+                    <li style={{backgroundColor: task.priority === 'normal' ? 'green' : 'red'}}>
+                        {task.title}
+                    </li>
+                ))}
+            </ol>
+        );
     }
 }
