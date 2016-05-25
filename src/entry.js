@@ -14,17 +14,8 @@ const tasks = [{title: 'First task', priority: 'normal'},
 store.dispatch(addTask(tasks[0].title));
 store.dispatch(addTask(tasks[1].title));
 
-const render = () => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <App/>
-        </Provider>,
-        document.getElementById('container'));
-};
-
-render();
-
-/*store.dispatch(addTask(tasks[0].title));
-// console.log(store.getState());
-store.dispatch(addTask(tasks[1].title));
- // console.log(store.getState());*/
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('container'));

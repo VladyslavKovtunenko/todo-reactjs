@@ -1,37 +1,39 @@
 import React from 'react'
 import {Task} from './task'
 import {InputTask} from './inputTask'
+import {connect} from 'react-redux'
 
-export class App extends React.Component {
+
+class App extends React.Component {
     constructor(props) {
         super(props);
         //this.tasks = store.store.getState();
         console.log(this.props);
-
+        //console.log(tasks);
     }
 
-
-    /*render(){
-     return (
-     <div>
-     <InputTask store={store}/>
-     <ol>
-     {this.tasks.map((task) => (
-     <li>
-     <Task task={task}/>
-     </li>
-     ))}
-     </ol>
-     </div>
-     )
-     }*/
+// <InputTask store={store}/>
     render() {
-        return <div></div>
+     return (
+         <div>
+
+             <ol>
+                 {this.tasks.map((task) => (
+                     <li>
+                         <Task task={task}/>
+                     </li>
+                 ))}
+             </ol>
+         </div>
+     )
     }
+
 }
 const mapStateToProps = (store) => {
     console.log(store);
-    tasks = store.getStore();
+    return {tasks: store.getState()}
 };
 
-const App = connect(mapStateToProps)(Task);
+App = connect(mapStateToProps)(Task);
+
+export default App
