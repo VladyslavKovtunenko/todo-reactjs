@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {addTask} from '../actions/actions'
 import {App} from '../components/app'
 import {createStore} from 'redux'
+import {Provider} from 'react-redux'
 import {todo} from '../redusers/reducer'
 
 const store = createStore(todo);
@@ -15,10 +16,12 @@ store.dispatch(addTask(tasks[1].title));
 
 const render = () => {
     ReactDOM.render(
-        <App store={store}/>,
+        <Provider store={store}>
+            <App/>
+        </Provider>,
         document.getElementById('container'));
 };
-store.subscribe(render);
+
 render();
 
 /*store.dispatch(addTask(tasks[0].title));
