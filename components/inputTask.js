@@ -16,7 +16,7 @@ class InputTask extends React.Component {
         console.log(this.input.value);
         if (this.input.value !== '') {
 
-            this.props.add(addTask(this.input.value));
+            this.props.add(this.input.value);
         }
         this.input.value = '';
     };
@@ -50,7 +50,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         add: (value) => {
-            dispatch(value)
+            dispatch(addTask(value))
         }
     }
 };

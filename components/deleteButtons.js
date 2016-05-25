@@ -10,7 +10,7 @@ class DeleteButton extends React.Component {
 
     delTask(e) {
         e.preventDefault();
-        this.props.del(deleteTask(this.props.title));
+        this.props.del(this.props.title);
     };
 
     render() {
@@ -28,7 +28,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         del: (value) => {
-            dispatch(value)
+            dispatch(deleteTask(value))
         }
     }
 };
