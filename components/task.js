@@ -1,5 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import DeleteButton from './deleteButtons'
+
 
 class Task extends React.Component {
     constructor(props) {
@@ -11,7 +13,7 @@ class Task extends React.Component {
             <ol>
                 {this.props.tasks.map((task) => (
                     <li>
-                        {task.title}
+                        {task.title} <DeleteButton title={task.title}/>
                     </li>
                 ))}
             </ol>

@@ -9,22 +9,10 @@ import {todo} from '../redusers/reducer'
 const store = createStore(todo);
 
 const tasks = [{title: 'First task'},
-    {title: 'Second task'},
-    {title: 2}];
+    {title: 'Second task'}];
 
 store.dispatch(addTask(tasks[0].title));
 store.dispatch(addTask(tasks[1].title));
-store.dispatch(addTask(tasks[2].title));
-
-let tmp = store.getState();
-
-console.log(tmp);
-let a;
-a = tmp.filter((title)=> {
-    if (title.title != 2) return title
-});
-console.log(a);
-
 
 ReactDOM.render(
     <Provider store={store}>
