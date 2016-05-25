@@ -1,6 +1,6 @@
 import React from 'react'
-import {Task} from './task'
-import {InputTask} from './inputTask'
+import Task from './task'
+import InputTask from './inputTask'
 import {connect} from 'react-redux'
 
 
@@ -19,7 +19,7 @@ class App extends React.Component {
     }
 
 }
-const mapStateToProps = (store) => {
+/*const mapStateToProps = (store) => {
     return {
         tasks: store
     }
@@ -36,6 +36,6 @@ const mapDispatchToProps = (dispatch) => {
 
 
 App = connect(mapStateToProps)(Task);
-App = connect(mapStateToProps, mapDispatchToProps)(InputTask);
+ App = connect(mapStateToProps, mapDispatchToProps)(Task)(InputTask);*/
 
 export default App;

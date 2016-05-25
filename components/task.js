@@ -1,6 +1,7 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-export class Task extends React.Component {
+class Task extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -9,7 +10,7 @@ export class Task extends React.Component {
         return (
             <ol>
                 {this.props.tasks.map((task) => (
-                    <li style={{backgroundColor: task.priority === 'normal' ? 'green' : 'red'}}>
+                    <li>
                         {task.title}
                     </li>
                 ))}
@@ -17,3 +18,13 @@ export class Task extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        tasks: store
+    }
+};
+
+Task = connect(mapStateToProps)(Task);
+
+export default Task

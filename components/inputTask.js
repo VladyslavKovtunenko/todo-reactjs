@@ -1,19 +1,21 @@
 import React from 'react'
 import {addTask} from '../actions/actions'
+import {connect} from 'react-redux'
 
-
-export class InputTask extends React.Component {
+class InputTask extends React.Component {
     constructor(props) {
         super(props);
         console.log(this.props);
         this.input = '';
         this.submit = this.submit.bind(this);
+        console.log(this.props);
     }
 
     submit(e) {
         e.preventDefault();
         console.log(this.input.value);
         if (this.input.value !== '') {
+
             this.props.add(addTask(this.input.value));
         }
         this.input.value = '';
@@ -31,12 +33,6 @@ export class InputTask extends React.Component {
                         <input ref={node => {this.input = node}}/>
                     </dd>
                     <dd>
-                        <select>
-                            <option>normal</option>
-                            <option>critical</option>
-                        </select>
-                    </dd>
-                    <dd>
                         <input type='submit' value="Submit"/>
                     </dd>
                 </dl>
@@ -44,3 +40,21 @@ export class InputTask extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        tasks: store
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        add: (value) => {
+            dispatch(value)
+        }
+    }
+};
+
+InputTask = connect(mapStateToProps, mapDispatchToProps)(InputTask);
+
+export default InputTask

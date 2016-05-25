@@ -4,3 +4,10 @@ export function addTask(text) {
         title: text
     };
 }
+
+export function deleteTask(text) {
+    return {
+        type: 'DELETE_TASK',
+        title: text
+    }
+}
